@@ -1,48 +1,60 @@
-void setup() {
- pinMode(5,OUTPUT);
- pinMode(6,OUTPUT);
- pinMode(9,OUTPUT);
- pinMode(10,OUTPUT);
- Serial.begin(9600);
+void setup()
+{
+   pinMode(0,OUTPUT);
+   pinMode(1,OUTPUT);
+   pinMode(2,OUTPUT);
+   pinMode(3,OUTPUT);
+   pinMode(4,OUTPUT);
+   Serial.begin(9600);
 }
-char income;
-void loop() {
-  income=Serial.read();
-  switch(income)
+
+byte X=0;
+
+void loop()
+{
+   if(Serial.available()>0)
+   {
+    
+     X=Serial.read();
+     X=X-'0';
+     digitalWrite(3,LOW);
+     delay(10);
+  if(X&0x1)
   {
-    case'f':towards();break;
-    case'b':backwards();break;
-    case'l':left();break;
-    case'r':right();break;
-    case's':stops();break;}
+    digitalWrite(4,HIGH);
+  }
+  else
+  {
+    digitalWrite(4,LOW);
+  }
+  
+  if(X>>1&0x1)
+  {
+    digitalWrite(5,HIGH);
+  }
+  else
+  {
+    digitalWrite(5,LOW);
+  }
+  
+  if(X>>2&0x1)
+  {
+    digitalWrite(6,HIGH);
+  }
+     
+  else
+  {
+    digitalWrite(6,LOW);
+  }
+  
+  if(X>>3&0x1)
+  {
+    digitalWrite(7,HIGH);
+  }
+  else
+  {
+    digitalWrite(7,LOW);
+  }
+   }
 }
-void towards()
-{digitalWrite(5,HIGH);
-digitalWrite(6,LOW);
-digitalWrite(9,HIGH);
-digitalWrite(10,LOW);
-  }
-void backwards()
-{digitalWrite(5,LOW);
-digitalWrite(6,HIGH);
-digitalWrite(9,LOW);
-digitalWrite(10,HIGH);
-  }
-void left()
-{digitalWrite(5,LOW);
-digitalWrite(6,HIGH);
-digitalWrite(9,HIGH);
-digitalWrite(10,LOW);
-  }
-void right()
-{digitalWrite(5,HIGH);
-digitalWrite(6,LOW);
-digitalWrite(9,LOW);
-digitalWrite(10,HIGH);
-  }
-void stops()
-{digitalWrite(5,LOW);
-digitalWrite(6,LOW);
-digitalWrite(9,LOW);
-digitalWrite(10,LOW);
-  }
+   
